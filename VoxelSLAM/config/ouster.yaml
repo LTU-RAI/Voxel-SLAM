@@ -1,15 +1,18 @@
-feature:
-  lid_topic: "/os1_cloud_node/points"
-  imu_topic: "/os1_cloud_node/imu"
-  save_path: "/media/zale/T7/newcollege/"
-  bagname: "long"
+General:
+  lid_topic: "/dcp2/ouster/points"
+  imu_topic: "/vectornav/IMU"
+  #lid_topic: "/unitree/ouster/points"
+  #imu_topic: "/unitree/imu/data"
+  save_path: "/var/home/scott/rosbags/"
+  previous_map: "# ltu1: 0.50"
+  bagname: "ltu2"
   lidar_type: 2
   blind: 1
   point_filter_num: 3
   extrinsic_tran: [0.0, 0.0, 0.0285]
-  extrinsic_rota: [-1, 0, 0,
-                    0,-1, 0,
-                    0, 0, 1]
+  extrinsic_rota: [0,-1, 0, 
+                  -1, 0, 0, 
+                   0, 0,-1]
   is_save_map: 0
 
 EKF:

@@ -1,6 +1,7 @@
 <launch>
 	<arg name="rviz" default="true" />
-
+  <!--param name="/use_sim_time" value="true" /-->
+	<!--node pkg="tf" type="static_transform_publisher" name="lidar"  args="0 0 0 0 0 0 base_link dcp2/os_sensor 10" /-->
 	<rosparam command="load" file="$(find voxel_slam)/config/ouster.yaml"/>
 	<param name="finish" value="false"/>
 	<node pkg="voxel_slam" type="voxelslam" name="voxelslam" output="screen" >
