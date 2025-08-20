@@ -1,6 +1,9 @@
 General:
+  odom_link: "odom2"
+  base_link: "base_link2"
   lid_topic: "/livox/lidar"
   imu_topic: "/livox/imu"
+  odom_pub_topic: "/odom"
   # The file path of the map to be saved
   save_path: "/home/zale/save_datas/relc_avia/"
   # The offline map in the save_path to be loaded

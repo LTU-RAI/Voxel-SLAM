@@ -1,10 +1,11 @@
 General:
+  odom_link: "odom2"
+  base_link: "base_link2"
   lid_topic: "/dcp2/ouster/points"
   imu_topic: "/vectornav/IMU"
-  #lid_topic: "/unitree/ouster/points"
-  #imu_topic: "/unitree/imu/data"
+  odom_pub_topic: "/odom"
   save_path: "/var/home/scott/rosbags/"
-  previous_map: "# ltu1: 0.50"
+  previous_map: "ltu1: 0.50"
   bagname: "ltu2"
   lidar_type: 2
   blind: 1

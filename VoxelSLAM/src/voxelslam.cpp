@@ -1,9 +1,13 @@
 #include "voxelslam.hpp"
+#include "nav_msgs/Odometry.h"
+#include "ros/time.h"
 #include <cstdio>
+#include <string>
 
 using namespace std;
 
 class ResultOutput {
+private:
 public:
   static ResultOutput &instance() {
     static ResultOutput inst;
@@ -24,8 +28,21 @@ public:
     q.setZ(q_this.z());
     transform.setRotation(q);
     ros::Time ct = ros::Time::now();
-    br.sendTransform(
-        tf::StampedTransform(transform, ct, "/camera_init", "/aft_mapped"));
+    br.sendTransform(tf::StampedTransform(transform, ct, odom_link, base_link));
+
+    nav_msgs::Odometry odom_msg;
+    odom_msg.header.frame_id = odom_link;
+    odom_msg.header.stamp = ct;
+    odom_msg.child_frame_id = odom_link;
+    odom_msg.pose.pose.position.x = t_this.x();
+    odom_msg.pose.pose.position.y = t_this.y();
+    odom_msg.pose.pose.position.z = t_this.z();
+    odom_msg.pose.pose.orientation.w = q_this.w();
+    odom_msg.pose.pose.orientation.x = q_this.x();
+    odom_msg.pose.pose.orientation.y = q_this.y();
+    odom_msg.pose.pose.orientation.z = q_this.z();
+
+    pub_odom.publish(odom_msg);
   }
 
   void pub_localtraj(PLV(3) & pwld, double jour, IMUST &x_curr, int cur_session,
@@ -763,8 +780,11 @@ public:
     scanPoses = new vector<ScanPose *>();
     keyframes = new vector<Keyframe *>();
 
-    string lid_topic, imu_topic;
+    string lid_topic, imu_topic, odom_pub_topic;
+    n.param<string>("General/odom_link", odom_link, "odom");
+    n.param<string>("General/base_link", base_link, "base_link");
     n.param<string>("General/lid_topic", lid_topic, "/livox/lidar");
+    n.param<string>("General/odom_pub_topic", odom_pub_topic, "/odom");
     n.param<string>("General/imu_topic", imu_topic, "/livox/imu");
     n.param<string>("General/bagname", bagname, "site3_handheld_4");
     n.param<string>("General/save_path", savepath, "");
@@ -783,6 +803,8 @@ public:
       sub_pcl =
           n.subscribe<sensor_msgs::PointCloud2>(lid_topic, 1000, pcl_handler);
     odom_ekf.imu_topic = imu_topic;
+
+    pub_odom = n.advertise<nav_msgs::Odometry>(odom_pub_topic, 10);
 
     n.param<double>("Odometry/cov_gyr", cov_gyr, 0.1);
     n.param<double>("Odometry/cov_acc", cov_acc, 0.1);

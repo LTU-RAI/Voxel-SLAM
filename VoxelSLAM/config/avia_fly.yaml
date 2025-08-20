@@ -1,6 +1,9 @@
 General:
+  odom_link: "odom2"
+  base_link: "base_link2"
   lid_topic: "/livox/lidar"
   imu_topic: "/livox/imu"
+  odom_pub_topic: "/odom"
   # bagname: "HKisland03"
   # bagname: "HKairport03"
   # bagname: "AMtown03"

@@ -1,6 +1,9 @@
 General:
+  odom_link: "odom2"
+  base_link: "base_link2"
   lid_topic: "/velodyne_points"
   imu_topic: "/imu/data"
+  odom_pub_topic: "/odom"
   save_path: "/home/zale/save_datas/urbannav/"
   previous_map: ""
   bagname: "medium1"
