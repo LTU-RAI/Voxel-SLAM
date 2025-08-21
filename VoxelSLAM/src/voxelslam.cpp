@@ -17,6 +17,8 @@ public:
   void pub_odom_func(IMUST &xc) {
     Eigen::Quaterniond q_this(xc.R);
     Eigen::Vector3d t_this = xc.p;
+    Eigen::Vector3d v_this_imu = xc.v;
+    
 
     static tf::TransformBroadcaster br;
     tf::Transform transform;
@@ -33,7 +35,7 @@ public:
     nav_msgs::Odometry odom_msg;
     odom_msg.header.frame_id = odom_link;
     odom_msg.header.stamp = ct;
-    odom_msg.child_frame_id = odom_link;
+    odom_msg.child_frame_id = base_link;
     odom_msg.pose.pose.position.x = t_this.x();
     odom_msg.pose.pose.position.y = t_this.y();
     odom_msg.pose.pose.position.z = t_this.z();
@@ -41,6 +43,9 @@ public:
     odom_msg.pose.pose.orientation.x = q_this.x();
     odom_msg.pose.pose.orientation.y = q_this.y();
     odom_msg.pose.pose.orientation.z = q_this.z();
+    odom_msg.twist.twist.linear.x = v_this_imu.x();
+    odom_msg.twist.twist.linear.y = v_this_imu.y();
+    odom_msg.twist.twist.linear.z = v_this_imu.z();
 
     pub_odom.publish(odom_msg);
   }
