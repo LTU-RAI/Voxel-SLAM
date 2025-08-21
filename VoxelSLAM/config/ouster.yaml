@@ -1,18 +1,21 @@
 General:
-  odom_link: "odom2"
-  base_link: "base_link2"
-  lid_topic: "/dcp2/ouster/points"
-  imu_topic: "/vectornav/IMU"
-  odom_pub_topic: "/odom"
-  save_path: "/var/home/scott/rosbags/"
-  previous_map: "ltu1: 0.50"
-  bagname: "ltu2"
+  odom_link: "unitree/odom"
+  base_link: "unitree/base_link"
+  lid_topic: "/unitree/ouster/points"
+  imu_topic: "/unitree/imu/data"
+  odom_pub_topic: "/unitree/vxslm/odometry/imu"
+  save_path: "/home/astrabrat/Documents/maps/"
+  previous_map: "subt1: 0.50"
+  bagname: "subt1"
   lidar_type: 2
   blind: 1
   point_filter_num: 3
-  extrinsic_tran: [0.0, 0.0, 0.0285]
-  extrinsic_rota: [0,-1, 0, 
-                  -1, 0, 0, 
+  extrinsic_tran: [0.0, 0.0, 0.0]
+  # extrinsic_rota: [0,-1, 0, 
+  #                 -1, 0, 0, 
+  #                  0, 0,-1]
+  extrinsic_rota: [1,0, 0, 
+                  0, -1, 0, 
                    0, 0,-1]
   is_save_map: 0
 
