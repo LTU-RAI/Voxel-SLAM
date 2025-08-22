@@ -3,9 +3,9 @@ General:
   base_link: "unitree/base_link"
   lid_topic: "/unitree/ouster/points"
   imu_topic: "/unitree/imu/data"
-  odom_pub_topic: "/unitree/vxslm/odometry/imu"
-  save_path: "/home/astrabrat/Documents/maps/"
-  previous_map: "subt1: 0.50"
+  odom_pub_topic: "/unitree/odometry/imu"
+  save_path: "/home/jetsonorin1/Documents/maps/"
+  # previous_map: "subt1: 0.50"
   bagname: "subt1"
   lidar_type: 2
   blind: 1
