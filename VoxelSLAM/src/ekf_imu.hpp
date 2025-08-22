@@ -42,7 +42,7 @@ public:
   {
     imus.push_front(last_imu);
 
-    if(last_pcl_end_time - pcl_beg_time > 0.01)
+    if(last_pcl_end_time - pcl_beg_time > 0.1)
     {
       printf("%lf %lf\n", pcl_beg_time, last_pcl_end_time);
       printf("LiDAR time regress. Please check data\n"); exit(0);
