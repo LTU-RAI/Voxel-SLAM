@@ -31,6 +31,7 @@ ros::Publisher pub_odom;
 ros::Subscriber sub_imu, sub_pcl;
 
 string base_link, odom_link;
+bool flip_imu_z = true;
 
 template <typename T> void pub_pl_func(T &pl, ros::Publisher &pub) {
   pl.height = 1;
@@ -58,8 +59,25 @@ void imu_handler(const sensor_msgs::Imu::ConstPtr &msg_in) {
     flag = 0;
     printf("Time0: %lf\n", msg_in->header.stamp.toSec());
   }
-
   sensor_msgs::Imu::Ptr msg(new sensor_msgs::Imu(*msg_in));
+
+  if (flip_imu_z) {
+    msg->angular_velocity.z = -msg->angular_velocity.z;
+    msg->linear_acceleration.z = -msg->linear_acceleration.z;
+
+    // Fix the 3x3 covariances (row-major). Only entries touching 'z' change
+    // sign. (indices: 0 1 2; 3 4 5; 6 7 8)
+    auto flipZCov = [](boost::array<double, 9> &C) {
+      if (C[0] == -1.0)
+        return; // -1 means "unknown" -> leave as-is
+      C[2] = -C[2];
+      C[5] = -C[5];
+      C[6] = -C[6];
+      C[7] = -C[7];
+    };
+    flipZCov(msg->angular_velocity_covariance);
+    flipZCov(msg->linear_acceleration_covariance);
+  }
 
   // For Hilti 2022 exp03
   // double t0 = 1646320760 + 255.5;

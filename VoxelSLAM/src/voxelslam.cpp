@@ -18,7 +18,7 @@ public:
     Eigen::Quaterniond q_this(xc.R);
     Eigen::Vector3d t_this = xc.p;
     Eigen::Vector3d v_this_imu = xc.v;
-    
+
 
     static tf::TransformBroadcaster br;
     tf::Transform transform;
@@ -791,6 +791,7 @@ public:
     n.param<string>("General/lid_topic", lid_topic, "/livox/lidar");
     n.param<string>("General/odom_pub_topic", odom_pub_topic, "/odom");
     n.param<string>("General/imu_topic", imu_topic, "/livox/imu");
+    n.param<bool>("General/imu_flip_z", flip_imu_z, false);
     n.param<string>("General/bagname", bagname, "site3_handheld_4");
     n.param<string>("General/save_path", savepath, "");
     n.param<int>("General/lidar_type", feat.lidar_type, 0);
@@ -2004,8 +2005,6 @@ public:
                                      loop_std_pair,
                                      std_manager->plane_cloud_vec_.back());
 
-        printf("id; %d score: %lf juds %lf \n", id, search_result.second,
-               juds[id]);
         if (search_result.first >= 0) {
           printf("Find Loop in session%d: %d %d\n", id, buf_base,
                  search_result.first);

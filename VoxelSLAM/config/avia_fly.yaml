@@ -3,6 +3,7 @@ General:
   base_link: "base_link2"
   lid_topic: "/livox/lidar"
   imu_topic: "/livox/imu"
+  imu_flip_z: False
   odom_pub_topic: "/odom"
   # bagname: "HKisland03"
   # bagname: "HKairport03"

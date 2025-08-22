@@ -3,6 +3,7 @@ General:
   base_link: "base_link2"
   lid_topic: "/hesai/pandar"
   imu_topic: "/alphasense/imu"
+  imu_flip_z: False
   odom_pub_topic: "/odom"
   # The file path of the map to be saved
   save_path: "/home/zale/save_datas/hilti_multi/"

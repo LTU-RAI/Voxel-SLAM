@@ -3,6 +3,7 @@ General:
   base_link: "unitree/base_link"
   lid_topic: "/unitree/ouster/points"
   imu_topic: "/unitree/imu/data"
+  imu_flip_z: True
   odom_pub_topic: "/unitree/odometry/imu"
   save_path: "/home/jetsonorin1/Documents/maps/"
   # previous_map: "subt1: 0.50"
