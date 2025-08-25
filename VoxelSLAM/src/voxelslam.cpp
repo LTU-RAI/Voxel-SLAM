@@ -37,12 +37,12 @@ public:
     odom_msg.header.stamp = ct;
     odom_msg.child_frame_id = base_link;
     odom_msg.pose.pose.position.x = t_this.x();
-    odom_msg.pose.pose.position.y = t_this.y();
-    odom_msg.pose.pose.position.z = t_this.z();
+    odom_msg.pose.pose.position.y = -t_this.y();
+    odom_msg.pose.pose.position.z = -t_this.z();
     odom_msg.pose.pose.orientation.w = q_this.w();
     odom_msg.pose.pose.orientation.x = q_this.x();
     odom_msg.pose.pose.orientation.y = q_this.y();
-    odom_msg.pose.pose.orientation.z = q_this.z();
+    odom_msg.pose.pose.orientation.z = -q_this.z();
     odom_msg.twist.twist.linear.x = v_this_imu.x();
     odom_msg.twist.twist.linear.y = v_this_imu.y();
     odom_msg.twist.twist.linear.z = v_this_imu.z();
@@ -59,8 +59,8 @@ public:
       Eigen::Vector3d pvec = pw;
       PointType ap;
       ap.x = pvec.x();
-      ap.y = pvec.y();
-      ap.z = pvec.z();
+      ap.y = -pvec.y();
+      ap.z = -pvec.z();
       pcl_send.push_back(ap);
     }
     pub_pl_func(pcl_send, pub_scan);
@@ -69,8 +69,8 @@ public:
 
     PointType ap;
     ap.x = pcurr[0];
-    ap.y = pcurr[1];
-    ap.z = pcurr[2];
+    ap.y = -pcurr[1];
+    ap.z = -pcurr[2];
     ap.curvature = jour;
     ap.intensity = cur_session;
     pcl_path.push_back(ap);
@@ -87,8 +87,8 @@ public:
         Eigen::Vector3d pvec = x_buf[i].R * pv.pnt + x_buf[i].p;
         PointType ap;
         ap.x = pvec[0];
-        ap.y = pvec[1];
-        ap.z = pvec[2];
+        ap.y = -pvec[1];
+        ap.z = -pvec[2];
         ap.intensity = cur_session;
         pcl_send.push_back(ap);
       }
@@ -97,8 +97,8 @@ public:
     for (int i = 0; i < win_count; i++) {
       Eigen::Vector3d pcurr = x_buf[i].p;
       pcl_path[i + win_base].x = pcurr[0];
-      pcl_path[i + win_base].y = pcurr[1];
-      pcl_path[i + win_base].z = pcurr[2];
+      pcl_path[i + win_base].y = -pcurr[1];
+      pcl_path[i + win_base].z = -pcurr[2];
     }
 
     pub_pl_func(pcl_path, pub_curr_path);
@@ -115,8 +115,8 @@ public:
       pp.intensity = ids[i];
       for (ScanPose *bl : *(relc_bl_buf[ids[i]])) {
         pp.x = bl->x.p[0];
-        pp.y = bl->x.p[1];
-        pp.z = bl->x.p[2];
+        pp.y = -bl->x.p[1];
+        pp.z = -bl->x.p[2];
         pl.push_back(pp);
       }
     }
@@ -150,8 +150,8 @@ public:
           Eigen::Vector3d vv(ap.x, ap.y, ap.z);
           vv = xx.R * vv + xx.p;
           pp.x = vv[0];
-          pp.y = vv[1];
-          pp.z = vv[2];
+          pp.y = -vv[1];
+          pp.z = -vv[2];
           pl.push_back(pp);
         }
 
@@ -725,8 +725,8 @@ public:
       for (pointVar &pv : *pvec_buf[i]) {
         Eigen::Vector3d vv = x_buf[i].R * pv.pnt + x_buf[i].p;
         pt.x = vv[0];
-        pt.y = vv[1];
-        pt.z = vv[2];
+        pt.y = -vv[1];
+        pt.z = -vv[2];
         pcl_send.push_back(pt);
       }
     pub_pl_func(pcl_send, pub_init);
@@ -1171,8 +1171,8 @@ public:
         x.g = dx.R * x.g;
       // PointType ap;
       ap.x = x.p[0];
-      ap.y = x.p[1];
-      ap.z = x.p[2];
+      ap.y = -x.p[1];
+      ap.z = -x.p[2];
       pcl_path.push_back(ap);
     }
 

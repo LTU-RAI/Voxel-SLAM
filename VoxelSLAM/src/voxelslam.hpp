@@ -31,7 +31,7 @@ ros::Publisher pub_odom;
 ros::Subscriber sub_imu, sub_pcl;
 
 string base_link, odom_link;
-bool flip_imu_z = true;
+bool flip_imu_z = false;
 
 template <typename T> void pub_pl_func(T &pl, ros::Publisher &pub) {
   pl.height = 1;

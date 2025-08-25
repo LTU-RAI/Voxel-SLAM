@@ -1,7 +1,7 @@
 <launch>
 	<arg name="rviz" default="false" />
   <!--param name="/use_sim_time" value="true" /-->
-	<!--node pkg="tf" type="static_transform_publisher" name="lidar"  args="0 0 0 0 0 0 base_link dcp2/os_sensor 10" /-->
+	<!-- <node pkg="tf" type="static_transform_publisher" name="lidar"  args="0 0 0 -3.14 0 0 unitree/odom unitree/slam 10" /> -->
 	<include file="$(find voxel_slam)/launch/include/unitree_module_robot_state_publisher.launch" />
 
 	<rosparam command="load" file="$(find voxel_slam)/config/ouster.yaml"/>
