@@ -23,11 +23,11 @@ public:
     static tf::TransformBroadcaster br;
     tf::Transform transform;
     tf::Quaternion q;
-    transform.setOrigin(tf::Vector3(t_this.x(), t_this.y(), t_this.z()));
+    transform.setOrigin(tf::Vector3(t_this.x(), -t_this.y(), -t_this.z()));
     q.setW(q_this.w());
     q.setX(q_this.x());
     q.setY(q_this.y());
-    q.setZ(q_this.z());
+    q.setZ(-q_this.z());
     transform.setRotation(q);
     ros::Time ct = ros::Time::now();
     br.sendTransform(tf::StampedTransform(transform, ct, odom_link, base_link));
